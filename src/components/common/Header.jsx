@@ -2,9 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "../../assets/icons/search.svg";
 import Logo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
+import useProfile from "../../hooks/useProfile";
+import getFirstCharacter from "../../utils/getFirstCharacter";
 
 const Header = () => {
     const { auth, setAuth } = useAuth();
+    const profile = useProfile(); // Get the profile data
+    const user = profile?.state?.user ?? auth?.user;
     const navigate = useNavigate();
     const handleLogout = () => {
         setAuth({});
@@ -27,7 +31,7 @@ const Header = () => {
 
                 <div>
                     <ul className="flex items-center space-x-5">
-                        {auth?.user && (
+                        {user && (
                             <li>
                                 <Link
                                     to="/createBlog"
@@ -47,7 +51,7 @@ const Header = () => {
                             </Link>
                         </li>
                         <li>
-                            {auth?.user ? (
+                            {user ? (
                                 <Link
                                     onClick={handleLogout}
                                     className="text-white/50 hover:text-white transition-all duration-200"
@@ -63,21 +67,29 @@ const Header = () => {
                                 </Link>
                             )}
                         </li>
-                        {auth?.user && (
+                        {user && (
                             <li className="flex items-center">
-                                {/* <!-- Circular Div with background color --> */}
                                 <div className="avater-img bg-orange-600 text-white">
-                                    <span className="">S</span>
-                                    {/* <!-- User's first name initial --> */}
+                                    {user?.avatar ? (
+                                        <img
+                                            className="max-h-[32px] max-w-[32px] lg:max-h-[44px] lg:max-w-[44px] rounded-full"
+                                            src={`${
+                                                import.meta.env
+                                                    .VITE_SERVER_BASE_URL
+                                            }/uploads/avatar/${user.avatar}`}
+                                            alt="avatar"
+                                        />
+                                    ) : (
+                                        <span className="text-xl">
+                                            {getFirstCharacter(user?.firstName)}
+                                        </span>
+                                    )}
                                 </div>
-
-                                {/* <!-- Logged-in user's name --> */}
                                 <Link to="/profile">
                                     <span className="text-white ml-2">
-                                        Saad Hasan
+                                        {user?.firstName}
                                     </span>
                                 </Link>
-                                {/* <!-- Profile Image --> */}
                             </li>
                         )}
                     </ul>
