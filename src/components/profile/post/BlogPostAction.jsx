@@ -1,9 +1,9 @@
-import LikeIcon from "../../../assets/icons/like.svg";
-import LikeFilledIcon from "../../../assets/icons/like-filled.svg";
-import HeartIcon from "../../../assets/icons/heart.svg";
-import HeartFilledIcon from "../../../assets/icons/heart-filled.svg";
-import CommentIcon from "../../../assets/icons/comment.svg";
 import { useState } from "react";
+import CommentIcon from "../../../assets/icons/comment.svg";
+import HeartFilledIcon from "../../../assets/icons/heart-filled.svg";
+import HeartIcon from "../../../assets/icons/heart.svg";
+import LikeFilledIcon from "../../../assets/icons/like-filled.svg";
+import LikeIcon from "../../../assets/icons/like.svg";
 
 const BlogPostAction = ({ blog }) => {
     const [liked, setLiked] = useState(false);
@@ -23,12 +23,12 @@ const BlogPostAction = ({ blog }) => {
                         alt="Favourite"
                     />
                 </li>
-                <a href="#comments">
+                <span>
                     <li>
                         <img src={CommentIcon} alt="Comments" />
                         <span>{blog?.comments?.length}</span>
                     </li>
-                </a>
+                </span>
             </ul>
         </div>
     );

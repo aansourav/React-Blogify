@@ -9,11 +9,11 @@ import ProfileProvider from "./providers/ProfileProvider.jsx";
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <AuthProvider>
-            <Router>
-                <ProfileProvider>
+            <ProfileProvider>
+                <Router>
                     <App />
-                </ProfileProvider>
-            </Router>
+                </Router>
+            </ProfileProvider>
         </AuthProvider>
     </React.StrictMode>
 );

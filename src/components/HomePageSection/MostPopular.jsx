@@ -10,9 +10,9 @@ const MostPopular = ({ blog }) => {
                 </h3>
                 <p className="text-slate-600 text-sm">
                     by{" "}
-                    <a href="./profile.html">
+                    <span>
                         {author.firstName} {author.lastName}
-                    </a>
+                    </span>
                     <span> · </span>{" "}
                     {likes && likes.length > 1
                         ? likes.length + " Likes"

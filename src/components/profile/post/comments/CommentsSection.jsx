@@ -1,11 +1,13 @@
 import { useAuth } from "../../../../hooks/useAuth";
-import useAvatar from "../../../../hooks/useAvatar";
+import useProfile from "../../../../hooks/useProfile";
 import Comment from "./Comment";
 
 const CommentsSection = ({ blog }) => {
-    const { comments, author } = blog;
     const { auth } = useAuth();
-    const { avatarURL } = useAvatar(blog);
+    const profile = useProfile();
+    const user = profile?.state?.user ?? auth?.user;
+    const { comments } = blog;
+    
     return (
         <section id="comments">
             <div className="mx-auto w-full md:w-10/12 container">
@@ -15,15 +17,17 @@ const CommentsSection = ({ blog }) => {
                 {auth?.user && (
                     <div className="flex items -center space-x-4">
                         <div className="avater-img bg-indigo-600 text-white">
-                            {avatarURL ? (
+                            {user?.avatar ? (
                                 <img
-                                    src={avatarURL}
+                                    src={`${
+                                        import.meta.env.VITE_SERVER_BASE_URL
+                                    }/uploads/avatar/${user.avatar}`}
                                     alt="avatar"
                                     className="w-8 h-8 rounded-full"
                                 />
                             ) : (
                                 <span className="text-xl">
-                                    {author?.firstName[0]}
+                                    {user?.firstName[0]}
                                 </span>
                             )}
                         </div>

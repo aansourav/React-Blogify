@@ -4,6 +4,7 @@ import Logo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
 import useProfile from "../../hooks/useProfile";
 import getFirstCharacter from "../../utils/getFirstCharacter";
+import Logout from "../auth/Logout";
 
 const Header = () => {
     const { auth, setAuth } = useAuth();
@@ -45,12 +46,8 @@ const Header = () => {
                         </li>
                         <li>
                             {user ? (
-                                <Link
-                                    onClick={handleLogout}
-                                    className="text-white/50 hover:text-white transition-all duration-200"
-                                >
-                                    Logout
-                                </Link>
+                                //
+                                <Logout />
                             ) : (
                                 <Link
                                     to="/login"

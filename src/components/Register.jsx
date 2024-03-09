@@ -1,5 +1,6 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Field from "./common/Field";
 
 const Register = () => {
@@ -10,8 +11,29 @@ const Register = () => {
         setError,
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const navigate = useNavigate();
+
+    const onSubmit = async (data) => {
+        // console.log(data);
+        try {
+            const response = await axios.post(
+                `${import.meta.env.VITE_SERVER_BASE_URL}/auth/register`,
+                data
+            );
+            if (response.status === 201) {
+                console.log(response.data);
+                navigate("/login");
+                alert("Account created successfully");
+            }
+        } catch (error) {
+            console.error("An error occurred: ", error);
+            setError("root.random", {
+                type: "random",
+                message: error?.response?.data?.error
+                    ? error.response.data.error
+                    : error.message,
+            });
+        }
     };
 
     return (
@@ -88,6 +110,9 @@ const Register = () => {
                             })}
                         />
                     </Field>
+                    <p className="text-sm text-red-500 my-2 text-center">
+                        {errors.root?.random && errors.root?.random?.message}
+                    </p>
                     <Field>
                         <button
                             type="submit"
