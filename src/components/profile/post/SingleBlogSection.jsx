@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../../../api";
+import { useAuth } from "../../../hooks/useAuth";
+import BlogPostAction from "./BlogPostAction";
 import SingleBlogContent from "./SingleBlogContent";
 import CommentsSection from "./comments/CommentsSection";
-import BlogPostAction from "./BlogPostAction";
 
 const SingleBlogSection = () => {
+    const { auth } = useAuth();
     const { blogId } = useParams();
     const [blog, setBlog] = useState(null);
 
@@ -27,13 +29,8 @@ const SingleBlogSection = () => {
     return (
         <main>
             {blog && <SingleBlogContent blog={blog} />}
-            {blog?.comments && (
-                <CommentsSection
-                    comments={blog.comments}
-                    author={blog.author}
-                />
-            )}
-            {blog && <BlogPostAction />}
+            {blog?.comments && <CommentsSection blog={blog} />}
+            {blog && auth?.user && <BlogPostAction blog={blog} />}
         </main>
     );
 };

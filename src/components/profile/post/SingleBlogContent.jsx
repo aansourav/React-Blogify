@@ -1,7 +1,9 @@
+import useAvatar from "../../../hooks/useAvatar";
 import convertTime from "../../../utils/convertTime";
 
 const SingleBlogContent = ({ blog }) => {
     const { title, content, author, createdAt, likes, tags, thumbnail } = blog;
+    const { avatarURL } = useAvatar(blog);
     return (
         <section>
             <div className="container text-center py-8">
@@ -9,11 +11,9 @@ const SingleBlogContent = ({ blog }) => {
                 <div className="flex justify-center items-center my-4 gap-4">
                     <div className="flex items-center capitalize space-x-2">
                         <div className="avater-img bg-indigo-600 text-white">
-                            {author?.avatar ? (
+                            {avatarURL ? (
                                 <img
-                                    src={`${
-                                        import.meta.env.VITE_SERVER_BASE_URL
-                                    }/uploads/avatar/${author.avatar}`}
+                                    src={avatarURL}
                                     alt="avatar"
                                     className="w-8 h-8 rounded-full"
                                 />
