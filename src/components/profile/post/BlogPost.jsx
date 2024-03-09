@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 import useProfile from "../../../hooks/useProfile";
 import BlogCard from "./BlogCard";
 
 const BlogPost = () => {
     const { state } = useProfile();
-    const avatar = state?.user?.avatar;
+    const { auth } = useAuth();
+    const avatar = state?.user?.avatar ? state.user.avatar : auth?.user?.avatar;
+
     return (
         <>
             {state?.blogs &&

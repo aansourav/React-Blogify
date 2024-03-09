@@ -1,14 +1,12 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
+import { Link } from "react-router-dom";
 import { actions } from "../../actions";
-import { useAuth } from "../../hooks/useAuth";
 import { blogReducer, initialState } from "../../reducers/BlogReducer";
 import BlogCard from "../profile/post/BlogCard";
 import Sidebar from "./Sidebar";
-import { Link } from "react-router-dom";
 
 const Home = () => {
-    const { auth } = useAuth();
     const [state, dispatch] = useReducer(blogReducer, initialState);
     const [page, setPage] = useState(1);
 
@@ -58,7 +56,7 @@ const Home = () => {
                                     >
                                         <BlogCard
                                             blog={blog}
-                                            avatar={blog.author.avatar}
+                                            // avatar={blog.author.avatar}
                                         />
                                     </Link>
                                 ))}

@@ -1,7 +1,15 @@
+import { useAuth } from "../../../hooks/useAuth";
+import useProfile from "../../../hooks/useProfile";
 import convertTime from "../../../utils/convertTime";
 
-const BlogCard = ({ blog, avatar }) => {
+const BlogCard = ({ blog}) => {
+    const profile = useProfile();
+    const { auth } = useAuth();
+    const user = profile?.state?.user ?? auth?.user;
     const { title, content, thumbnail, author, likes, createdAt } = blog;
+
+    const avatar =
+        user?.id === blog?.author?.id ? user?.avatar : blog?.author?.avatar;
 
     return (
         <div className="blog-card">
