@@ -7,7 +7,7 @@ import getFirstCharacter from "../../utils/getFirstCharacter";
 
 const Header = () => {
     const { auth, setAuth } = useAuth();
-    const profile = useProfile(); // Get the profile data
+    const profile = useProfile();
     const user = profile?.state?.user ?? auth?.user;
     const navigate = useNavigate();
     const handleLogout = () => {
@@ -17,18 +17,11 @@ const Header = () => {
     return (
         <header>
             <nav className="container">
-                {/* <!-- Logo --> */}
                 <div>
                     <Link to="/">
                         <img className="w-32" src={Logo} alt="lws" />
                     </Link>
                 </div>
-
-                {/* <!-- Actions - Login, Write, Home, Search -->
-                <!-- Notes for Developers -->
-                <!-- For Logged in User - Write, Profile, Logout Menu -->
-                <!-- For Not Logged in User - Login Menu --> */}
-
                 <div>
                     <ul className="flex items-center space-x-5">
                         {user && (
@@ -69,8 +62,12 @@ const Header = () => {
                         </li>
                         {user && (
                             <li className="flex items-center">
-                                <div className="avater-img bg-orange-600 text-white">
-                                    {user?.avatar ? (
+                                <div
+                                    className={`avater-img ${
+                                        !user?.avatar && "bg-orange-600"
+                                    }  text-white`}
+                                >
+                                    {user.avatar ? (
                                         <img
                                             className="max-h-[32px] max-w-[32px] lg:max-h-[44px] lg:max-w-[44px] rounded-full"
                                             src={`${

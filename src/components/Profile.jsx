@@ -4,7 +4,7 @@ import useApi from "../hooks/useApi";
 import { useAuth } from "../hooks/useAuth";
 import useProfile from "../hooks/useProfile";
 import ProfileInfo from "./profile/ProfileInfo";
-import BlogPost from "./profile/BlogPost";
+import BlogPost from "./profile/post/BlogPost";
 
 const Profile = () => {
     const { api } = useApi();

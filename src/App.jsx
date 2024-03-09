@@ -9,6 +9,7 @@ import Register from "./components/Register";
 import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import SingleBlogSection from "./components/profile/post/SingleBlogSection";
 
 function App() {
     return (
@@ -23,6 +24,8 @@ function App() {
 
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} exact />
+                <Route path="/blogs/:blogId" element={<SingleBlogSection/>} exact />
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
