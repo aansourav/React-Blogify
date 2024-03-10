@@ -1,13 +1,34 @@
+// import { useState } from "react";
+import useApi from "../../../../hooks/useApi";
 import { useAuth } from "../../../../hooks/useAuth";
 import useProfile from "../../../../hooks/useProfile";
 import Comment from "./Comment";
 
 const CommentsSection = ({ blog }) => {
     const { auth } = useAuth();
+    const { api } = useApi();
     const profile = useProfile();
     const user = profile?.state?.user ?? auth?.user;
     const { comments } = blog;
-    
+
+    // const [comments, setComments] = useState(blog?.comments || []);
+    // const [comment, setComment] = useState("");
+    // const addComment = (e) => {
+    //     const keyCode = e.keyCode;
+    //     if (keyCode === 13) {
+    //         const response = api.post(
+    //             `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
+    //                 blog.id
+    //             }/comment`,
+    //             { comment }
+    //         );
+    //         if (response.status === 200) {
+    //             // setComments([...comments, response.data]);
+    //             // setComment("");
+    //             console.log(response.data);
+    //         }
+    //     }
+
     return (
         <section id="comments">
             <div className="mx-auto w-full md:w-10/12 container">
@@ -33,6 +54,9 @@ const CommentsSection = ({ blog }) => {
                         </div>
                         <div className="w-full">
                             <textarea
+                                // value={comment}
+                                // onChange={(e) => setComment(e.target.value)}
+                                // onKeyDown={(e) => addComment(e)}
                                 className="w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none"
                                 placeholder="Write a comment"
                             ></textarea>
@@ -52,5 +76,4 @@ const CommentsSection = ({ blog }) => {
         </section>
     );
 };
-
 export default CommentsSection;
