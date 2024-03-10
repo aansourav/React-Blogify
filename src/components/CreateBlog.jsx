@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import useApi from "../hooks/useApi";
 
 const CreateBlog = () => {
@@ -11,6 +12,7 @@ const CreateBlog = () => {
     } = useForm();
 
     const { api } = useApi();
+    const navigate = useNavigate();
 
     const thumbnailUploadRef = useRef(null);
     const [thumbnailPreview, setThumbnailPreview] = useState(null);
@@ -25,7 +27,7 @@ const CreateBlog = () => {
     };
 
     const handleRemoveThumbnail = () => {
-        thumbnailUploadRef.current.value = null; 
+        thumbnailUploadRef.current.value = null;
         setThumbnailPreview(null);
     };
 
@@ -43,10 +45,14 @@ const CreateBlog = () => {
             );
 
             if (response.status === 201) {
-                console.log(response.data);
+                const confirmed = window.confirm(
+                    "Blog Created Successfully! Do you want to go to your profile?"
+                );
+                if (confirmed) {
+                    navigate(`/profile`);
+                }
             }
         } catch (error) {
-            console.error("An error occurred: ", error);
             setError("root.random", {
                 type: "random",
                 message: error?.response?.data?.error
@@ -67,7 +73,6 @@ const CreateBlog = () => {
             <div className="container">
                 <form onSubmit={handleSubmit(onSubmit)} className="createBlog">
                     <div className="grid place-items-center cursor-pointer bg-slate-600/20 h-[150px] rounded-md my-4 relative">
-                        
                         {thumbnailPreview ? (
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <img
@@ -105,7 +110,7 @@ const CreateBlog = () => {
                                 <p className="ml-2">Upload Your Image</p>
                             </div>
                         )}
-                        
+
                         <input
                             ref={thumbnailUploadRef}
                             type="file"

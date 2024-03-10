@@ -2,8 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Favourites from "./Favourites";
 import MostPopular from "./MostPopular";
+import { useAuth } from "../../hooks/useAuth";
 
 const Sidebar = () => {
+    const { auth } = useAuth();
     const [popularBlogs, setPopularBlogs] = useState("");
     useEffect(() => {
         const fetchPopular = async () => {
@@ -41,7 +43,13 @@ const Sidebar = () => {
                 </h3>
 
                 <ul className="space-y-5 my-5">
-                    <Favourites />
+                    {auth?.user ? (
+                        <Favourites />
+                    ) : (
+                        <p className="text-slate-500">
+                            Login to see your favourites
+                        </p>
+                    )}
                 </ul>
             </div>
         </div>

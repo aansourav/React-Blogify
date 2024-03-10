@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { BlogContext } from "../context";
 
-const usePost = () => {
+const useBlog = () => {
     return useContext(BlogContext);
 };
 
-export default usePost;
+export default useBlog;
