@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
 import { actions } from "../../actions";
+import { usePostContext } from "../../providers/DeleteProvider";
 import { blogReducer, initialState } from "../../reducers/BlogReducer";
 import BlogCard from "../profile/post/BlogCard";
 import Sidebar from "./Sidebar";
@@ -9,6 +9,7 @@ import Sidebar from "./Sidebar";
 const Home = () => {
     const [state, dispatch] = useReducer(blogReducer, initialState);
     const [page, setPage] = useState(1);
+    const { postDeleted } = usePostContext();
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -33,7 +34,7 @@ const Home = () => {
         };
 
         fetchBlogs();
-    }, [page]);
+    }, [page, postDeleted]);
 
     if (state?.loading) {
         return <div>Loading...</div>;
@@ -50,15 +51,6 @@ const Home = () => {
                         <div className="space-y-3 md:col-span-5">
                             {state?.blogs?.blogs &&
                                 state.blogs.blogs.map((blog) => (
-                                    // <Link
-                                    //     to={`/blogs/${blog.id}`}
-                                    //     key={blog.id}
-                                    // >
-                                    //     <BlogCard
-                                    //         blog={blog}
-                                    //     />
-                                    // </Link>
-
                                     <BlogCard key={blog.id} blog={blog} />
                                 ))}
                         </div>

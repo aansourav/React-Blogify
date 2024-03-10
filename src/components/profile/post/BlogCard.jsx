@@ -5,7 +5,6 @@ import useProfile from "../../../hooks/useProfile";
 import convertTime from "../../../utils/convertTime";
 import ActionPopup from "./ActionPopup";
 
-
 const BlogCard = ({ blog }) => {
     const profile = useProfile();
     const { auth } = useAuth();
@@ -91,7 +90,9 @@ const BlogCard = ({ blog }) => {
             >
                 {location.pathname === "/" &&
                     auth?.user &&
-                    blog?.author?.id === auth?.user?.id && <ActionPopup />}
+                    blog?.author?.id === auth?.user?.id && (
+                        <ActionPopup blog={blog} />
+                    )}
             </div>
         </div>
     );
