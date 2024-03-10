@@ -1,20 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SearchIcon from "../../assets/icons/search.svg";
 import Logo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
 import useProfile from "../../hooks/useProfile";
-import getFirstCharacter from "../../utils/getFirstCharacter";
 import Logout from "../auth/Logout";
 
 const Header = () => {
-    const { auth, setAuth } = useAuth();
+    const { auth } = useAuth();
     const profile = useProfile();
     const user = profile?.state?.user ?? auth?.user;
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        setAuth({});
-        navigate("/login");
-    };
+
     return (
         <header>
             <nav className="container">
@@ -46,7 +41,6 @@ const Header = () => {
                         </li>
                         <li>
                             {user ? (
-                                //
                                 <Logout />
                             ) : (
                                 <Link
@@ -75,7 +69,7 @@ const Header = () => {
                                         />
                                     ) : (
                                         <span className="text-xl">
-                                            {getFirstCharacter(user?.firstName)}
+                                            {user?.firstName[0]}
                                         </span>
                                     )}
                                 </div>

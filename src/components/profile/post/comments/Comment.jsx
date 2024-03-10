@@ -21,6 +21,7 @@ const Comment = ({ comment }) => {
                 </h5>
                 <p className="text-slate-300">{content}</p>
             </div>
+
         </div>
     );
 };

@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import useApi from "../../../../hooks/useApi";
 import { useAuth } from "../../../../hooks/useAuth";
 import useProfile from "../../../../hooks/useProfile";
@@ -9,25 +9,46 @@ const CommentsSection = ({ blog }) => {
     const { api } = useApi();
     const profile = useProfile();
     const user = profile?.state?.user ?? auth?.user;
-    const { comments } = blog;
 
-    // const [comments, setComments] = useState(blog?.comments || []);
-    // const [comment, setComment] = useState("");
-    // const addComment = (e) => {
-    //     const keyCode = e.keyCode;
-    //     if (keyCode === 13) {
-    //         const response = api.post(
-    //             `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
-    //                 blog.id
-    //             }/comment`,
-    //             { comment }
-    //         );
-    //         if (response.status === 200) {
-    //             // setComments([...comments, response.data]);
-    //             // setComment("");
-    //             console.log(response.data);
-    //         }
-    //     }
+    const [comments, setComments] = useState(blog?.comments || []);
+    const [comment, setComment] = useState("");
+
+    const addComment = async () => {
+        try {
+            const response = await api.post(
+                `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
+                    blog?.id
+                }/comment`,
+                { content: comment }
+            );
+            if (response.status === 200) {
+                setComments((prevComments) => [
+                    ...prevComments,
+                    response.data.comments[response.data.comments.length - 1],
+                ]);
+                setComment("");
+            }
+        } catch (error) {
+            console.error("Error adding comment:", error.message);
+        }
+    };
+
+    const handleDeleteComment = async (id) => {
+        try {
+            const response = await api.delete(
+                `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
+                    blog?.id
+                }/comment/${id}`
+            );
+            if (response.status === 200) {
+                setComments((prevComments) =>
+                    prevComments.filter((comment) => comment.id !== id)
+                );
+            }
+        } catch (error) {
+            console.error("Error deleting comment:", error.message);
+        }
+    };
 
     return (
         <section id="comments">
@@ -54,26 +75,38 @@ const CommentsSection = ({ blog }) => {
                         </div>
                         <div className="w-full">
                             <textarea
-                                // value={comment}
-                                // onChange={(e) => setComment(e.target.value)}
-                                // onKeyDown={(e) => addComment(e)}
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
                                 className="w-full bg-[#030317] border border-slate-500 text-slate-300 p-4 rounded-md focus:outline-none"
                                 placeholder="Write a comment"
                             ></textarea>
                             <div className="flex justify-end mt-4">
-                                <button className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200">
+                                <button
+                                    onClick={addComment}
+                                    className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                                >
                                     Comment
                                 </button>
                             </div>
                         </div>
                     </div>
                 )}
-
                 {comments?.map((comment) => (
-                    <Comment key={comment.id} comment={comment} />
+                    <div key={comment.id}>
+                        <Comment comment={comment} />
+                        {auth?.user?.id === comment.author.id && (
+                            <button
+                                className="-mt-6 border border-blue-900 hover:bg-blue-900 px-4 py-1 rounded-md"
+                                onClick={() => handleDeleteComment(comment.id)}
+                            >
+                                Delete
+                            </button>
+                        )}
+                    </div>
                 ))}
             </div>
         </section>
     );
 };
+
 export default CommentsSection;
