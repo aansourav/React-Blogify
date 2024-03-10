@@ -50,15 +50,16 @@ const Home = () => {
                         <div className="space-y-3 md:col-span-5">
                             {state?.blogs?.blogs &&
                                 state.blogs.blogs.map((blog) => (
-                                    <Link
-                                        to={`/blogs/${blog.id}`}
-                                        key={blog.id}
-                                    >
-                                        <BlogCard
-                                            blog={blog}
-                                            // avatar={blog.author.avatar}
-                                        />
-                                    </Link>
+                                    // <Link
+                                    //     to={`/blogs/${blog.id}`}
+                                    //     key={blog.id}
+                                    // >
+                                    //     <BlogCard
+                                    //         blog={blog}
+                                    //     />
+                                    // </Link>
+
+                                    <BlogCard key={blog.id} blog={blog} />
                                 ))}
                         </div>
                         <Sidebar />

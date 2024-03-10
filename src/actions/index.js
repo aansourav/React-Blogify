@@ -14,8 +14,5 @@ export const actions = {
         BLOG_CREATED: "BLOG_CREATED",
         BLOG_EDITED: "BLOG_EDITED",
         BLOG_DELETED: "BLOG_DELETED",
-        BLOG_LIKED: "BLOG_LIKED",
-        BLOG_LOVED: "BLOG_LOVED",
-        BLOG_COMMENTED: "BLOG_COMMENTED",
     },
 };

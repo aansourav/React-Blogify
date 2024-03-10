@@ -31,7 +31,7 @@ const BlogPostAction = ({ blog }) => {
         getFavorites();
         setLiked(blog?.likes?.some((like) => like.id === auth?.user?.id));
         setLikesCount(blog?.likes?.length || 0);
-    }, [blog, auth, loved]);
+    }, [blog, auth, loved, api, blog?.comments]);
 
     const handleLike = async () => {
         try {
