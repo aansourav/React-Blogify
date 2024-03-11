@@ -97,8 +97,8 @@
 
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { actions } from "../../actions";
 import { usePostContext } from "../../providers/DeleteProvider";
+// import SearchSection from "../common/Search/SearchSection";
 import BlogCard from "../profile/post/BlogCard";
 import Sidebar from "./Sidebar";
 
@@ -161,6 +161,7 @@ const Home = () => {
     return (
         <main>
             <section>
+                {/* <SearchSection /> */}
                 <div className="container">
                     <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
                         <div className="space-y-3 md:col-span-5">

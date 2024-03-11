@@ -1,4 +1,3 @@
-// App.js
 import { Route, Routes } from "react-router-dom";
 import CreateBlog from "./components/CreateBlog";
 import Home from "./components/HomePageSection/Home";
@@ -10,6 +9,7 @@ import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import SingleBlogSection from "./components/profile/post/SingleBlogSection";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import SearchSection from "./components/common/Search/SearchSection";
 
 function App() {
     return (
@@ -24,6 +24,7 @@ function App() {
 
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} exact />
+                {/* <Route path="/search" element={<SearchSection />} /> */}
                 <Route
                     path="/blogs/:blogId"
                     element={<SingleBlogSection />}
