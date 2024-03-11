@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useApi from "../../hooks/useApi";
-import { useAuth } from "../../hooks/useAuth";
 
 const Favourites = () => {
-    const { auth } = useAuth();
     const { api } = useApi();
     const [favouriteBlogs, setFavouriteBlogs] = useState([]);
 
@@ -21,7 +19,6 @@ const Favourites = () => {
                 console.log(error);
             }
         };
-
         fetchFavourites();
     }, []);
 

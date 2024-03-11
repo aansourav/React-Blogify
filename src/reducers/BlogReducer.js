@@ -18,7 +18,7 @@ const blogReducer = (state, action) => {
         case actions.blog.DATA_FETCHED: {
             return {
                 ...state,
-                blogs: action.data,
+                blogs: [...state.blogs, ...action.data.blogs],
                 loading: false,
             };
         }
@@ -63,4 +63,4 @@ const blogReducer = (state, action) => {
     }
 };
 
-export { initialState, blogReducer };
+export { blogReducer, initialState };
