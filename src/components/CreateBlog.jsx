@@ -14,6 +14,8 @@ const CreateBlog = () => {
         setError,
     } = useForm();
 
+    // console.log(location?.state?.blogData?.id);
+
     const { api } = useApi();
 
     const thumbnailUploadRef = useRef(null);
@@ -22,7 +24,7 @@ const CreateBlog = () => {
         useState(true);
 
     useEffect(() => {
-        if (location.state && location.state.blogData) {
+        if (location?.state && location?.state?.blogData) {
             const { title, content, tags, thumbnail } = location.state.blogData;
             setValue("title", title);
             setValue("content", content);
@@ -61,20 +63,22 @@ const CreateBlog = () => {
             formData.append("thumbnail", thumbnailUploadRef.current.files[0]);
 
             let response;
-            if (location.state && location.state.blogData) {
+            if (location.state && location.state.blogData?.id) {
                 // If updating an existing blog
                 response = await api.patch(
                     `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
-                        location.state.blogData.id
+                        location?.state?.blogData?.id
                     }`,
                     formData
                 );
+                console.log("Edit Response ", response.data);
             } else {
                 // If creating a new blog
                 response = await api.post(
                     `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/`,
                     formData
                 );
+                console.log("Create Response ", response.data);
             }
 
             if (response.status === 200 || response.status === 201) {
@@ -86,7 +90,11 @@ const CreateBlog = () => {
                         " Successfully! Do you want to see the blog?"
                 );
                 if (confirmed) {
-                    navigate(`/blogs/${response?.data?.blog?.id}`);
+                    if (location?.state && location?.state?.blogData) {
+                        navigate(`/blogs/${response?.data?.id}`);
+                    } else {
+                        navigate(`/blogs/${response?.data?.blog?.id}`);
+                    }
                 } else {
                     navigate("/profile");
                 }
