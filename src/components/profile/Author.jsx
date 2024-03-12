@@ -71,7 +71,9 @@ const Author = () => {
                 </div>
                 {/* <!-- end profile info --> */}
 
-                <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">His Blogs</h4>
+                <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">
+                    Blogs of {profile?.firstName} {profile?.lastName}{" "}
+                </h4>
                 <div className="my-6 space-y-4">
                     {profile?.blogs?.map((blog) => (
                         <BlogCard key={blog.id} blog={blog} />

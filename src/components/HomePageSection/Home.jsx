@@ -71,11 +71,11 @@ const Home = () => {
                             ))}
                             {hasMore ? (
                                 <p ref={loaderRef} className="text-center">
-                                    Loading more blog posts...
+                                    Loading more blogs...
                                 </p>
                             ) : (
-                                <p className="text-center">
-                                    No more blog posts available
+                                <p className="text-center !my-12">
+                                    No more blogs available
                                 </p>
                             )}
                         </div>
