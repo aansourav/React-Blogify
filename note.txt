@@ -7,7 +7,15 @@ password: 11111111
 email: salahuddin@learnwithsumit.com
 password: learnwithsumit123
 
-
-
-
 ${import.meta.env.VITE_SERVER_BASE_URL}
+
+`/profile/${id}`
+
+----------------------------------------------------------------
+
+
+✓ ইউজার যদি লগড ইন না থাকে, তাহলে ইউজার যখন Like বা Favourite করার চেষ্টা করবে, তখন সুন্দর করে বাধা দিতে হবে 
+
+ Create Blog পেজের সব কিছুই Required Field অর্থাৎ ব্লগের জন্যে যা যা প্রয়োজন সব কিছু দিয়ে আপনাকে সাবমিট করতে হবে । কোনো কিছু এড না করে সাবমিট করার চেষ্টা করলে Error দেখাতে হবে
+
+ ✓ আপনাদের সার্চ Implement করতে হবে । সার্চের জন্যে API এবং Templete বানিয়ে দেয়া হয়েছে । Navbar থেকে সার্চ আইকন এ ক্লিক করলে সার্চ এর মোডাল ওপেন হবে । এখানে Search Modal এর জন্যে usePortal হুক ব্যবহার করতে হবে।

@@ -60,7 +60,7 @@ const SearchSection = ({ onClose }) => {
                 {/* <!-- Search Result --> */}
                 <div className="">
                     <h3 className="text-slate-400 font-bold mt-6">
-                        Search Results
+                        {blogs.length > 0 && "Search Results"}
                     </h3>
                     <div className="my-4 divide-y-2 divide-slate-500/30 max-h-[440px] overflow-y-scroll overscroll-contain">
                         {blogs.length > 0 ? (

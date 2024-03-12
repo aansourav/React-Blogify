@@ -64,9 +64,13 @@ const BlogCard = ({ blog }) => {
                             </div>
 
                             <div>
-                                <h5 className="text-slate-500 text-sm">
+                                <Link
+                                    to={`/profile/${author?.id}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="text-slate-500 text-sm hover:text-slate-300 transition-all cursor-pointer"
+                                >
                                     {author.firstName} {author.lastName}
-                                </h5>
+                                </Link>
                                 <div className="flex items-center text-xs text-slate-700">
                                     <span>{convertTime(createdAt)}</span>
                                 </div>

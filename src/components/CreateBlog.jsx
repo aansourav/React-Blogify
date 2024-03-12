@@ -83,10 +83,12 @@ const CreateBlog = () => {
                         (location.state && location.state.blogData
                             ? "edited"
                             : "created") +
-                        " Successfully! Do you want to go to your profile?"
+                        " Successfully! Do you want to see the blog?"
                 );
                 if (confirmed) {
-                    navigate(`/profile`);
+                    navigate(`/blogs/${response?.data?.blog?.id}`);
+                } else {
+                    navigate("/profile");
                 }
             }
         } catch (error) {
@@ -164,6 +166,7 @@ const CreateBlog = () => {
                             accept="image/jpeg, image/png"
                             hidden
                             onChange={handleThumbnailUpload}
+                            required
                         />
                     </div>
                     {errors?.avatar && (
@@ -176,6 +179,7 @@ const CreateBlog = () => {
                             type="text"
                             id="title"
                             name="title"
+                            required
                             placeholder="Enter your blog title"
                             {...register("title", {
                                 required: "Title is required",
@@ -193,6 +197,7 @@ const CreateBlog = () => {
                             type="text"
                             id="tags"
                             name="tags"
+                            required
                             placeholder="Your Comma Separated Tags Ex. JavaScript, React, Node, Express etc."
                             {...register("tags", {
                                 required: "Tags are required",
@@ -210,6 +215,7 @@ const CreateBlog = () => {
                         <textarea
                             id="content"
                             name="content"
+                            required
                             placeholder="Write your blog content"
                             rows="8"
                             {...register("content", {

@@ -1,11 +1,11 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react"; // Import useState hook
 import SearchIcon from "../../assets/icons/search.svg";
 import Logo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
 import useProfile from "../../hooks/useProfile";
 import Logout from "../auth/Logout";
-import SearchSection from "./Search/SearchSection"; // Import SearchSection component
+import SearchSection from "./Search/SearchSection";
 
 const Header = () => {
     const { auth } = useAuth();
@@ -29,25 +29,26 @@ const Header = () => {
                 </div>
                 <div>
                     <ul className="flex items-center space-x-5">
+                        <li>
+                            <Link
+                                to="/createBlog"
+                                className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                            >
+                                Write
+                            </Link>
+                        </li>
+
                         {user && (
                             <li>
-                                <Link
-                                    to="/createBlog"
-                                    className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
+                                <button
+                                    onClick={toggleSearch}
+                                    className="flex items-center gap-2 cursor-pointer"
                                 >
-                                    Write
-                                </Link>
+                                    <img src={SearchIcon} alt="Search" />
+                                    <span>Search</span>
+                                </button>
                             </li>
                         )}
-                        <li>
-                            <button
-                                onClick={toggleSearch}
-                                className="flex items-center gap-2 cursor-pointer"
-                            >
-                                <img src={SearchIcon} alt="Search" />
-                                <span>Search</span>
-                            </button>
-                        </li>
                         <li>
                             {user ? (
                                 <Logout />

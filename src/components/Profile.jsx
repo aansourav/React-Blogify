@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import { actions } from "../actions";
 import useApi from "../hooks/useApi";
 import { useAuth } from "../hooks/useAuth";
@@ -9,8 +10,8 @@ import BlogPost from "./profile/post/BlogPost";
 const Profile = () => {
     const { api } = useApi();
     const { auth } = useAuth();
-
     const { state, dispatch } = useProfile();
+
     useEffect(() => {
         dispatch({ type: actions.profile.DATA_FETCHING });
         const fetchProfile = async () => {

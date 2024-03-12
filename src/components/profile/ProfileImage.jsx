@@ -3,7 +3,6 @@ import { actions } from "../../actions";
 import EditIcon from "../../assets/icons/edit.svg";
 import useApi from "../../hooks/useApi";
 import useProfile from "../../hooks/useProfile";
-import getFirstCharacter from "../../utils/getFirstCharacter";
 
 const ProfileImage = () => {
     const { state, dispatch } = useProfile();
@@ -52,9 +51,7 @@ const ProfileImage = () => {
                 />
             ) : (
                 <div className="w-full h-full bg-orange-600 text-white grid place-items-center text-5xl rounded-full">
-                    <span className="">
-                        {getFirstCharacter(state?.user?.firstName)}
-                    </span>
+                    <span className="">{state?.user?.firstName[0]}</span>
                 </div>
             )}
 

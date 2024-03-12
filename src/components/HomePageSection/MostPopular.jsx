@@ -10,9 +10,13 @@ const MostPopular = ({ blog }) => {
                 </h3>
                 <p className="text-slate-600 text-sm">
                     by{" "}
-                    <span>
+                    <Link
+                        to={`/profile/${author?.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="hover:text-slate-400 transition-all cursor-pointer"
+                    >
                         {author.firstName} {author.lastName}
-                    </span>
+                    </Link>
                     <span> · </span>{" "}
                     {likes && likes.length > 1
                         ? likes.length + " Likes"

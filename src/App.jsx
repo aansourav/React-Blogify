@@ -9,7 +9,7 @@ import Footer from "./components/common/Footer";
 import Header from "./components/common/Header";
 import SingleBlogSection from "./components/profile/post/SingleBlogSection";
 import PrivateRoutes from "./routes/PrivateRoutes";
-import SearchSection from "./components/common/Search/SearchSection";
+import Author from "./components/profile/Author";
 
 function App() {
     return (
@@ -19,12 +19,13 @@ function App() {
                 {/* Private Routes */}
                 <Route element={<PrivateRoutes />}>
                     <Route path="/createBlog" element={<CreateBlog />} />
-                    <Route path="/profile" element={<Profile />} />
                 </Route>
 
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} exact />
-                {/* <Route path="/search" element={<SearchSection />} /> */}
+
+                <Route path="/profile" element={<Profile />} exact />
+                <Route path="/profile/:id" element={<Author/>} exact />
                 <Route
                     path="/blogs/:blogId"
                     element={<SingleBlogSection />}
