@@ -8,33 +8,32 @@ const SearchSection = ({ onClose }) => {
     const [searchText, setSearchText] = useState("");
     const [blogs, setBlogs] = useState([]);
 
-useEffect(() => {
-    const timer = setTimeout(async () => {
-        try {
-            if (searchText.trim() === "") {
-                setBlogs([]);
-            } else {
-                const response = await api.get(
-                    `${
-                        import.meta.env.VITE_SERVER_BASE_URL
-                    }/search?q=${searchText}`
-                );
-                if (response.status === 200) {
-                    if (response.data.length > 0) {
-                        setBlogs(response.data);
-                    } else {
-                        
-                        console.log("No results found");
-                        setBlogs([]);
+    useEffect(() => {
+        const timer = setTimeout(async () => {
+            try {
+                if (searchText.trim() === "") {
+                    setBlogs([]);
+                } else {
+                    const response = await api.get(
+                        `${
+                            import.meta.env.VITE_SERVER_BASE_URL
+                        }/search?q=${searchText}`
+                    );
+                    if (response.status === 200) {
+                        if (response.data.length > 0) {
+                            setBlogs(response.data);
+                        } else {
+                            console.log("No results found");
+                            setBlogs([]);
+                        }
                     }
                 }
+            } catch (error) {
+                console.error("An error occurred:", error.message);
             }
-        } catch (error) {
-            console.error("An error occurred:", error.message);
-        }
-    }, 500);
-    return () => clearTimeout(timer);
-}, [searchText, api]);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, [searchText, api]);
 
     const handleInputChange = (e) => {
         setSearchText(e.target.value);
@@ -65,16 +64,23 @@ useEffect(() => {
                     </h3>
                     <div className="my-4 divide-y-2 divide-slate-500/30 max-h-[440px] overflow-y-scroll overscroll-contain">
                         {blogs.length > 0 ? (
-                            blogs?.data?.map((blog) => (<SearchResult key={blog.id} blog={blog} />))
+                            blogs?.data?.map((blog) => (
+                                <SearchResult
+                                    key={blog.id}
+                                    blog={blog}
+                                    onClose={onClose}
+                                />
+                            ))
                         ) : (
-                            <p className="text-slate-400 text-center">No blog to show!</p>
+                            <p className="text-slate-400 text-center">
+                                No blog to show!
+                            </p>
                         )}
                     </div>
                 </div>
 
                 <a onClick={onClose}>
                     {" "}
-                    {/* Add onClick event to call onClose function */}
                     <img
                         src={CloseIcon}
                         alt="Close"
