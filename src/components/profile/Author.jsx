@@ -6,8 +6,8 @@ import BlogCard from "./post/BlogCard";
 
 const Author = () => {
     const { id } = useParams();
-    const { api } = useApi();
     const { auth } = useAuth();
+    const { api } = useApi();
     const navigate = useNavigate();
     const [profile, setProfile] = useState({});
 

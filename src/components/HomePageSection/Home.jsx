@@ -11,7 +11,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const { postDeleted } = usePostContext();
     const loaderRef = useRef(null);
-    const blogPerPage = 7;
+    const blogPerPage = 10;
 
     useEffect(() => {
         const fetchBlogs = async () => {
