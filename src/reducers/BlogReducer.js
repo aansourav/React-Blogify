@@ -16,9 +16,17 @@ const blogReducer = (state, action) => {
         }
 
         case actions.blog.DATA_FETCHED: {
+            console.log(action.data);
             return {
                 ...state,
-                blogs: [...state.blogs, ...action.data.blogs],
+                blogs: action.data,
+                loading: false,
+            };
+        }
+        case actions.blog.DATA_REFETCHED: {
+            return {
+                ...state,
+                blogs: [...state.blogs, action.data],
                 loading: false,
             };
         }

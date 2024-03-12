@@ -28,9 +28,7 @@ const Register = () => {
             console.error("An error occurred: ", error);
             setError("root.random", {
                 type: "random",
-                message: error?.response?.data?.error
-                    ? error.response.data.error
-                    : error.message,
+                message: error?.response?.data?.message ?? error.message,
             });
         }
     };

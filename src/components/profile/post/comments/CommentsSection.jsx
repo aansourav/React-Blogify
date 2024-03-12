@@ -29,7 +29,10 @@ const CommentsSection = ({ blog }) => {
                 setComment("");
             }
         } catch (error) {
-            console.error("Error adding comment:", error.message);
+            console.error(
+                "Error adding comment:",
+                error?.response?.data?.message ?? error.message
+            );
         }
     };
 
@@ -46,7 +49,10 @@ const CommentsSection = ({ blog }) => {
                 );
             }
         } catch (error) {
-            console.error("Error deleting comment:", error.message);
+            console.error(
+                "Error deleting comment:",
+                error?.response?.data?.message ?? error.message
+            );
         }
     };
 

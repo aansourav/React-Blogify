@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { actions } from "../../actions";
+import useBlog from "../../hooks/useBlog";
 import { usePostContext } from "../../providers/DeleteProvider";
 import BlogCard from "../profile/post/BlogCard";
 import Sidebar from "./Sidebar";
@@ -10,11 +12,13 @@ const Home = () => {
     const [hasMore, setHasMore] = useState(true);
     const [loading, setLoading] = useState(false);
     const { postDeleted } = usePostContext();
+    const { state, dispatch } = useBlog();
     const loaderRef = useRef(null);
     const blogPerPage = 10;
 
     useEffect(() => {
         const fetchBlogs = async () => {
+            dispatch({ type: actions.blog.DATA_FETCHING });
             setLoading(true);
             try {
                 const response = await axios.get(
@@ -24,7 +28,7 @@ const Home = () => {
                 );
 
                 if (response.status === 200) {
-                    const fetchedBlogs = response.data.blogs;
+                    const fetchedBlogs = response?.data?.blogs;
                     if (fetchedBlogs.length === 0) {
                         setHasMore(false);
                     } else {
@@ -36,7 +40,7 @@ const Home = () => {
                     }
                 }
             } catch (error) {
-                console.log(error);
+                console.log(error?.response?.data?.message ?? error.message);
             } finally {
                 setLoading(false);
             }
@@ -60,13 +64,20 @@ const Home = () => {
         };
     }, [page, postDeleted, hasMore, loading]);
 
+    useEffect(() => {
+        dispatch({
+            type: actions.blog.DATA_FETCHED,
+            data: blogs,
+        });
+    }, [blogs]);
+
     return (
         <main>
             <section>
                 <div className="container">
                     <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
                         <div className="space-y-3 md:col-span-5">
-                            {blogs.map((blog) => (
+                            {state?.blogs?.map((blog) => (
                                 <BlogCard key={blog.id} blog={blog} />
                             ))}
                             {hasMore ? (

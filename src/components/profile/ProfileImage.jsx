@@ -34,7 +34,7 @@ const ProfileImage = () => {
         } catch (error) {
             dispatch({
                 type: actions.profile.DATA_FETCH_ERROR,
-                error: error.message,
+                error: error?.response?.data?.message ?? error.message,
             });
         }
     };

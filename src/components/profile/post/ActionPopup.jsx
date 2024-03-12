@@ -5,8 +5,11 @@ import DeleteIcon from "../../../assets/icons/delete.svg";
 import EditIcon from "../../../assets/icons/edit.svg";
 import useApi from "../../../hooks/useApi";
 import { usePostContext } from "../../../providers/DeleteProvider";
+import useBlog from "../../../hooks/useBlog";
+import { actions } from "../../../actions";
 
 const ActionPopup = ({ blog }) => {
+    const { state, dispatch } = useBlog();
     const [showActionPopup, setShowActionPopup] = useState(false);
     const popupRef = useRef(null);
     const navigate = useNavigate();
@@ -24,16 +27,21 @@ const ActionPopup = ({ blog }) => {
 
     const handleDelete = async () => {
         setShowActionPopup(false);
-
+        handlePostDeleted();
         try {
             const response = await api.delete(
                 `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${blog.id}`
             );
             if (response.status === 200) {
+                dispatch({
+                    type: actions.blog.BLOG_DELETED,
+                    data: blog.id,
+                });
+                console.log(response?.data);
                 handlePostDeleted();
             }
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data?.message ?? error.message);
         }
     };
 
