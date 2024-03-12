@@ -75,6 +75,13 @@ const BlogPostAction = ({ blog }) => {
         }
     };
 
+    const handleComment = () => {
+        if (!auth?.user) {
+            alert("You need to login to comment");
+            return;
+        }
+    };
+
     return (
         <div className="floating-action">
             <ul className="floating-action-menus">
@@ -90,7 +97,7 @@ const BlogPostAction = ({ blog }) => {
                     />
                 </li>
 
-                <li>
+                <li onClick={handleComment}>
                     <img src={CommentIcon} alt="Comments" />
                     <span>{blog?.comments?.length}</span>
                 </li>
