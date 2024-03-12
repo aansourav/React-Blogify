@@ -30,7 +30,7 @@ const SingleBlogSection = () => {
         <main>
             {blog && <SingleBlogContent blog={blog} />}
             {blog?.comments && <CommentsSection blog={blog} />}
-            {blog && auth?.user && <BlogPostAction blog={blog} />}
+            {blog && <BlogPostAction blog={blog} />}
         </main>
     );
 };

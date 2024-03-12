@@ -34,6 +34,10 @@ const BlogPostAction = ({ blog }) => {
     }, [blog, auth, loved, api, blog?.comments]);
 
     const handleLike = async () => {
+        if (!auth?.user) {
+            alert("You need to login to like a blog");
+            return;
+        }
         try {
             setLiked((prevLiked) => !prevLiked);
             const response = await api.post(
@@ -53,6 +57,10 @@ const BlogPostAction = ({ blog }) => {
     };
 
     const handleLove = async () => {
+        if (!auth?.user) {
+            alert("You need to login to Add to Favourites");
+            return;
+        }
         try {
             const response = await api.patch(
                 `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
