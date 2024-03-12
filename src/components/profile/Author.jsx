@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useApi from "../../hooks/useApi";
+import { useAuth } from "../../hooks/useAuth";
 import BlogCard from "./post/BlogCard";
 
 const Author = () => {
     const { id } = useParams();
+    const { auth } = useAuth();
     const { api } = useApi();
+    const navigate = useNavigate();
     const [profile, setProfile] = useState({});
 
     useEffect(() => {
+        if (auth && auth?.user?.id === id) {
+            navigate("/profile");
+            return;
+        }
         const fetchProfile = async () => {
             try {
                 const response = await api.get(`/profile/${id}`);
