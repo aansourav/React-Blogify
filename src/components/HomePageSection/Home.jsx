@@ -82,7 +82,7 @@ const Home = () => {
                             ))}
                             {hasMore ? (
                                 <p ref={loaderRef} className="text-center">
-                                    Loading more blogs...
+                                    Loading blogs...
                                 </p>
                             ) : (
                                 <p className="text-center !my-12">

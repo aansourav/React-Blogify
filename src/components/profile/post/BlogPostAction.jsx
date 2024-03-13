@@ -25,7 +25,7 @@ const BlogPostAction = ({ blog }) => {
 
                 setLoved(response.data.blogs.some((b) => b.id === blog.id));
             } catch (error) {
-                console.log(error);
+                console.log(error?.response?.data?.message ?? error.message);
             }
         };
         getFavorites();
@@ -51,7 +51,7 @@ const BlogPostAction = ({ blog }) => {
                 setLiked((prevLiked) => !prevLiked);
             }
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data?.message ?? error.message);
             setLiked((prevLiked) => !prevLiked);
         }
     };
@@ -71,7 +71,7 @@ const BlogPostAction = ({ blog }) => {
                 setLoved((prevLoved) => !prevLoved);
             }
         } catch (error) {
-            console.log(error);
+            console.log(error?.response?.data?.message ?? error.message);
         }
     };
 
