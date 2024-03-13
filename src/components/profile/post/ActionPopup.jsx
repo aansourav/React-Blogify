@@ -29,6 +29,9 @@ const ActionPopup = ({ blog }) => {
         setShowActionPopup(false);
         handlePostDeleted();
         try {
+            const confirmed = window.confirm("Are you sure you want to delete?");
+            if (!confirmed) return;
+            
             const response = await api.delete(
                 `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${blog.id}`
             );
