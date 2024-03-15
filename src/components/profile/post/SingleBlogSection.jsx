@@ -29,7 +29,7 @@ const SingleBlogSection = () => {
     return (
         <main>
             {blog && <SingleBlogContent blog={blog} />}
-            {blog?.comments && <CommentsSection blog={blog} />}
+            {<CommentsSection blog={blog} />}
             {blog && <BlogPostAction blog={blog} />}
         </main>
     );

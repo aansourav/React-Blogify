@@ -19,13 +19,13 @@ function App() {
                 {/* Private Routes */}
                 <Route element={<PrivateRoutes />}>
                     <Route path="/createBlog" element={<CreateBlog />} />
+                    <Route path="/profile" element={<Profile />} exact />
                 </Route>
 
                 {/* Public Routes */}
                 <Route path="/" element={<Home />} exact />
 
-                <Route path="/profile" element={<Profile />} exact />
-                <Route path="/profile/:id" element={<Author/>} exact />
+                <Route path="/profile/:id" element={<Author />} exact />
                 <Route
                     path="/blogs/:blogId"
                     element={<SingleBlogSection />}
