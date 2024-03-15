@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../../api";
 import { useAuth } from "../../../hooks/useAuth";
 import BlogPostAction from "./BlogPostAction";
@@ -9,6 +9,7 @@ import CommentsSection from "./comments/CommentsSection";
 const SingleBlogSection = () => {
     const { auth } = useAuth();
     const { blogId } = useParams();
+    const navigate = useNavigate();
     const [blog, setBlog] = useState(null);
 
     useEffect(() => {
@@ -19,6 +20,9 @@ const SingleBlogSection = () => {
                 );
                 setBlog(response.data);
             } catch (error) {
+                if (error?.response?.data?.message === "Blog not found") {
+                    navigate("/notfound", { replace: true });
+                }
                 console.log(error?.response?.data?.message ?? error.message);
             }
         };
