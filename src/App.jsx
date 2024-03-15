@@ -37,6 +37,7 @@ function App() {
 
                 {/* Not Found Route */}
                 <Route path="*" element={<NotFound />} />
+                <Route path="/notfound" element={<NotFound />} />
             </Routes>
 
             <Footer />

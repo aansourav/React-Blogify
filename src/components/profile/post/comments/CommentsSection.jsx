@@ -17,7 +17,7 @@ const CommentsSection = ({ blog }) => {
         try {
             const response = await api.post(
                 `${import.meta.env.VITE_SERVER_BASE_URL}/blogs/${
-                    blog?.id
+                    blog.id
                 }/comment`,
                 { content: comment }
             );
@@ -29,7 +29,7 @@ const CommentsSection = ({ blog }) => {
                 setComment("");
             }
         } catch (error) {
-            console.error(
+            console.log(
                 "Error adding comment:",
                 error?.response?.data?.message ?? error.message
             );
@@ -105,7 +105,7 @@ const CommentsSection = ({ blog }) => {
                 {comments?.map((comment) => (
                     <div key={comment.id}>
                         <Comment comment={comment} />
-                        {auth?.user?.id === comment.author.id && (
+                        {auth?.user?.id === comment?.author?.id && (
                             <button
                                 className="-mt-6 border border-blue-900 hover:bg-blue-900 px-4 py-1 rounded-md"
                                 onClick={() => handleDeleteComment(comment.id)}

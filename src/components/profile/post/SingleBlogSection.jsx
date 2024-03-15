@@ -9,8 +9,8 @@ import CommentsSection from "./comments/CommentsSection";
 const SingleBlogSection = () => {
     const { auth } = useAuth();
     const { blogId } = useParams();
-    const navigate = useNavigate();
     const [blog, setBlog] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -33,7 +33,14 @@ const SingleBlogSection = () => {
     return (
         <main>
             {blog && <SingleBlogContent blog={blog} />}
-            {<CommentsSection blog={blog} />}
+            {blog?.comments ? (
+                <CommentsSection blog={blog} />
+            ) : (
+                <p className="text-yellow-500 text-xs text-center">
+                    {" "}
+                    This blog is not commentable!
+                </p>
+            )}
             {blog && <BlogPostAction blog={blog} />}
         </main>
     );
