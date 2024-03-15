@@ -11,6 +11,7 @@ const Profile = () => {
     const { api } = useApi();
     const { auth } = useAuth();
     const { state, dispatch } = useProfile();
+    console.log(state?.blogs);
 
     useEffect(() => {
         dispatch({ type: actions.profile.DATA_FETCHING });
@@ -44,9 +45,9 @@ const Profile = () => {
                 <ProfileInfo />
                 <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">Your Blogs</h4>
                 <div className="my-6 space-y-4">
-                    {
-                        !state?.blogs ? <div>You don&apos;t have any blogs</div> : null
-                    }
+                    {state?.blogs?.length === 0 && (
+                        <div>You don&apos;t have any blogs</div>
+                    )}
                     <BlogPost />
                 </div>
             </div>
